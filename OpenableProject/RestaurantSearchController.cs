@@ -4,18 +4,31 @@ using Microsoft.AspNetCore.Mvc;
 namespace OpenableProject;
 [ApiController]
 [Microsoft.AspNetCore.Components.Route("api/[controller]")]
-public class SearchController : ControllerBase
+public class RestaurantSearchController : ControllerBase
 {
     // GET
     [HttpGet("Get")]
-    public string Get(SearchRequest searchRequest)
+    public RestaurantSearchResponse Get(RestaurantSearchRequest request)
     {
-       return "Hello World";
+        return new RestaurantSearchResponse();
 
     }
 }
 
-public class SearchRequest
+public class RestaurantSearchResponse
+{
+    public List<Restaurant> Restaurants { get; set; }
+}
+
+public class Restaurant
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public double CommentsNumber { get; set; }
+    public double CommentPoints { get; set; }
+}
+
+public class RestaurantSearchRequest
 {
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
