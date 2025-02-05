@@ -10,27 +10,36 @@ public class RestaurantSearchController : ControllerBase
     [HttpGet("Get")]
     public RestaurantSearchResponse Get([FromQuery]RestaurantSearchRequest request)
     {
+        var restaurantSearchService = new RestaurantSearchService();
+        var restaurants = restaurantSearchService.Get(request);
         return new RestaurantSearchResponse()
         {
-            Restaurants = new List<Restaurant>()
-            {
-                new Restaurant
-                {
-                    Id = 1,
-                    Name = "麥當勞",
-                    CommentsNumber = 400,
-                    CommentPoints = 4.1
-                },
-                new Restaurant
-                {
-                    Id = 2,
-                    Name = "KFC",
-                    CommentsNumber = 403,
-                    CommentPoints = 2.1
-                }
-            }
+            Restaurants = restaurants
         };
+    }
+}
 
+public class RestaurantSearchService
+{
+    public List<Restaurant> Get(RestaurantSearchRequest request)
+    {
+       return new List<Restaurant>()
+       {
+           new Restaurant
+           {
+               Id = 1,
+               Name = "麥當勞",
+               CommentsNumber = 400,
+               CommentPoints = 4.1
+           },
+           new Restaurant
+           {
+               Id = 2,
+               Name = "KFC",
+               CommentsNumber = 403,
+               CommentPoints = 2.1
+           }
+       } ;
     }
 }
 
