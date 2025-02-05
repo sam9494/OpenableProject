@@ -8,9 +8,28 @@ public class RestaurantSearchController : ControllerBase
 {
     // GET
     [HttpGet("Get")]
-    public RestaurantSearchResponse Get(RestaurantSearchRequest request)
+    public RestaurantSearchResponse Get([FromQuery]RestaurantSearchRequest request)
     {
-        return new RestaurantSearchResponse();
+        return new RestaurantSearchResponse()
+        {
+            Restaurants = new List<Restaurant>()
+            {
+                new Restaurant
+                {
+                    Id = 1,
+                    Name = "麥當勞",
+                    CommentsNumber = 400,
+                    CommentPoints = 4.1
+                },
+                new Restaurant
+                {
+                    Id = 2,
+                    Name = "KFC",
+                    CommentsNumber = 403,
+                    CommentPoints = 2.1
+                }
+            }
+        };
 
     }
 }
@@ -24,7 +43,7 @@ public class Restaurant
 {
     public int Id { get; set; }
     public string Name { get; set; }
-    public double CommentsNumber { get; set; }
+    public int CommentsNumber { get; set; }
     public double CommentPoints { get; set; }
 }
 
