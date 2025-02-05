@@ -17,7 +17,8 @@ public class SearchController : ControllerBase
 
 public class SearchRequest
 {
-    public DateTime DateTime { get; set; }
+    public DateTime StartTime { get; set; }
+    public DateTime EndTime { get; set; }
     public int PartySize { get; set; }
     public CountryCode CountyCode { get; set; }
     public DistrictCode DistrictCode { get; set; } 
