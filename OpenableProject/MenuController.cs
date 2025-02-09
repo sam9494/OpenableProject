@@ -7,27 +7,35 @@ public class MenuController : ControllerBase
 {
     // GET
     [HttpGet("Get")]
-    public List<Menu> Get()
+    public Menu Get()
     {
-        return new List<Menu>()
+        return new Menu()
         {
-            new Menu()
+            MenuItems = new List<MenuItem>()
             {
-                Id = 100,
-                Name = "雞腿便當",
-                Price = 70m
-            },
-            new Menu()
-            {
-                Id = 101,
-                Name = "招牌便當",
-                Price = 60m
+                new MenuItem()
+                {
+                    Id = 100,
+                    Name = "雞腿便當",
+                    Price = 70m
+                },
+                new MenuItem()
+                {
+                    Id = 101,
+                    Name = "招牌便當",
+                    Price = 60m
+                }
             }
         };
     }
 }
 
 public class Menu
+{
+    public List<MenuItem> MenuItems { get; set; }
+}
+
+public class MenuItem
 {
     public int Id { get; set; }
     public string Name { get; set; }
