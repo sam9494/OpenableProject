@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OpenableProject;
 [ApiController]
-[Microsoft.AspNetCore.Components.Route("api/[controller]")]
+[Route("api/[controller]")]
 public class RestaurantController : ControllerBase
 {
     // GET
