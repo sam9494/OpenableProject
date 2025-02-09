@@ -14,13 +14,13 @@ public class RestaurantController : ControllerBase
        {
            new Restaurant
            {
-               id = 0,
+               Id = 0,
                Name = "池上便當",
                ImageUrl = new Uri("http://池上便當url.com") 
            },
            new Restaurant
            {
-               id = 1,
+               Id = 1,
                Name = "八方雲集",
                ImageUrl = new Uri("http://八方雲集url.com")
            }
@@ -30,7 +30,7 @@ public class RestaurantController : ControllerBase
 
 public class Restaurant
 {
+    public int Id { get; set; }
     public string Name { get; set; }
     public Uri ImageUrl { get; set; }
-    public int id { get; set; }
 }
