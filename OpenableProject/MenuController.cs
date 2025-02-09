@@ -7,7 +7,7 @@ public class MenuController : ControllerBase
 {
     // GET
     [HttpGet("Get")]
-    public List<Menu> Get(int restaurantId)
+    public List<Menu> Get()
     {
         return new List<Menu>()
         {
