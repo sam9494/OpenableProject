@@ -18,12 +18,12 @@ public class RestaurantController : ControllerBase
                Name = "池上便當",
                ImageUrl = new Uri("http://池上便當url.com") 
            },
-           new Restaurant
-           {
-               Id = 1,
-               Name = "八方雲集",
-               ImageUrl = new Uri("http://八方雲集url.com")
-           }
+           // new Restaurant
+           // {
+           //     Id = 1,
+           //     Name = "八方雲集",
+           //     ImageUrl = new Uri("http://八方雲集url.com")
+           // }
        };
     }
 }
