@@ -3,12 +3,13 @@ using System.Data.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OpenableProject;
+
 [ApiController]
 [Route("api/[controller]")]
 public class OrderController : ControllerBase
 {
     // GET
-    [HttpGet("Post")]
+    [HttpPost("Post")]
     public OrderResponse Post(OrderRequest orderRequest)
     {
         var orderService = new OrderService();
@@ -20,7 +21,6 @@ public class OrderController : ControllerBase
         };
     }
 }
-
 
 public class OrderService
 {
@@ -48,16 +48,29 @@ public class OrderRepository
 
 public static class OrderStorage
 {
-    public static int LastOrderId { get; set; }
+    private static int LastOrderId { get; set; }
     public static ConcurrentDictionary<int, Order> OrderRecords { get; set; }
+    private static readonly object LockObj = new object();
 
     public static void Reset(int orderId)
     {
+        OrderRecords = new ConcurrentDictionary<int, Order>();
         LastOrderId = orderId;
     }
+
     public static int Add(Order order)
     {
-        OrderRecords.TryAdd(LastOrderId,order);
+        lock (LockObj)
+        {
+            var nextLastOrderId = LastOrderId + 1;
+            var isSuccess = OrderRecords.TryAdd(nextLastOrderId, order);
+            if (isSuccess)
+            {
+                LastOrderId = nextLastOrderId;
+            }
+
+            return nextLastOrderId;
+        }
     }
 }
 
@@ -72,7 +85,7 @@ public class Order
     }
 }
 
-public class OrderResponse 
+public class OrderResponse
 {
     public int OrderId { get; set; }
     public string OrderStatus { get; set; }
