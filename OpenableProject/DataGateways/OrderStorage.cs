@@ -6,7 +6,7 @@ namespace OpenableProject.DataGateways;
 public static class OrderStorage
 {
     private static int LastOrderId { get; set; }
-    public static ConcurrentDictionary<int, Order> OrderRecords { get; set; }
+    private static ConcurrentDictionary<int, Order> OrderRecords { get; set; }
     private static readonly object LockObj = new object();
 
     public static void Reset(int orderId)
@@ -20,6 +20,7 @@ public static class OrderStorage
         lock (LockObj)
         {
             var nextLastOrderId = LastOrderId + 1;
+            order.Id = nextLastOrderId;
             var isSuccess = OrderRecords.TryAdd(nextLastOrderId, order);
             if (isSuccess)
             {
@@ -28,5 +29,10 @@ public static class OrderStorage
 
             return nextLastOrderId;
         }
+    }
+
+    public static List<Order> GetAll()
+    {
+        return OrderRecords.Values.ToList();
     }
 }

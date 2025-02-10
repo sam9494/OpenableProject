@@ -15,4 +15,10 @@ public class OrderService
         var insertedOrder = orderRepository.Insert(order);
         return insertedOrder;
     }
+
+    public List<Order> GetAll()
+    {
+        var orderRepository = new OrderRepository(); 
+        return orderRepository.GetAll();
+    }
 }

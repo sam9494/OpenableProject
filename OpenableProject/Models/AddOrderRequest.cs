@@ -1,6 +1,6 @@
 ﻿namespace OpenableProject.Models;
 
-public class OrderRequest
+public class AddOrderRequest
 {
     public string CustomerName { get; set; }
     public List<OrderItem> OrderItems { get; set; }

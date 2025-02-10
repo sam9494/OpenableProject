@@ -11,4 +11,9 @@ public class OrderRepository
         order.Id = orderId;
         return order;
     }
+
+    public List<Order> GetAll()
+    {
+        return OrderStorage.GetAll();
+    }
 }
