@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using OpenableProject.Models;
 
-namespace OpenableProject;
+namespace OpenableProject.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class MenuController : ControllerBase
@@ -28,16 +29,4 @@ public class MenuController : ControllerBase
             }
         };
     }
-}
-
-public class Menu
-{
-    public List<MenuItem> MenuItems { get; set; }
-}
-
-public class MenuItem
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public decimal Price { get; set; }
 }

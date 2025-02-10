@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using OpenableProject.Models;
 
-namespace OpenableProject.DataGateway;
+namespace OpenableProject.DataGateways;
 
 public static class OrderStorage
 {

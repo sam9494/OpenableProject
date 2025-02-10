@@ -1,4 +1,4 @@
-﻿using OpenableProject.DataGateway;
+﻿using OpenableProject.DataGateways;
 using OpenableProject.Models;
 
 namespace OpenableProject.Repositories;

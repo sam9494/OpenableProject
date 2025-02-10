@@ -1,5 +1,5 @@
 using OpenableProject;
-using OpenableProject.DataGateway;
+using OpenableProject.DataGateways;
 
 var builder = WebApplication.CreateBuilder(args);
 

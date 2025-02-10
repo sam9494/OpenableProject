@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OpenableProject.Models;
 
-namespace OpenableProject.Controller;
+namespace OpenableProject.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class RestaurantController : ControllerBase
