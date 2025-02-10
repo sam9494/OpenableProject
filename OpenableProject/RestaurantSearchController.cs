@@ -54,6 +54,10 @@ public class Restaurant
     public string Name { get; set; }
     public int CommentsNumber { get; set; }
     public double CommentPoints { get; set; }
+    public decimal UpperPrice { get; set; }
+    public decimal LowerPrice { get; set; }
+    public int OrderQuantityToday { get; set; }
+    public List<DateTime> AvailableTimes { get; set; }
 }
 
 public class RestaurantSearchRequest
