@@ -1,3 +1,5 @@
+using OpenTableProject;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddConnection(builder.Configuration);
+builder.Services.RegisterRepository(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
