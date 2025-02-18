@@ -7,7 +7,7 @@ namespace OpenableProject.Controllers;
 public class MenuController : ControllerBase
 {
     // GET
-    [HttpGet()]
+    [HttpGet]
     public Menu Get()
     {
         return new Menu()

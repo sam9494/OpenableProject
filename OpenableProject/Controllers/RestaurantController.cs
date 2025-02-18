@@ -7,7 +7,7 @@ namespace OpenableProject.Controllers;
 public class RestaurantController : ControllerBase
 {
     // GET
-    [HttpGet()]
+    [HttpGet]
     public List<Restaurant> Get()
     {
        return new List<Restaurant>()

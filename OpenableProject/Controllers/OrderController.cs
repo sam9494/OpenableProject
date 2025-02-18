@@ -9,7 +9,7 @@ namespace OpenableProject.Controllers;
 [Route("api/[controller]")]
 public class OrderController : ControllerBase
 {
-    [HttpPost()]
+    [HttpPost]
     public OrderResponse Post(AddOrderRequest addOrderRequest)
     {
         var orderService = new OrderService();
@@ -21,7 +21,7 @@ public class OrderController : ControllerBase
         };
     }
     
-    [HttpGet()]
+    [HttpGet]
     public List<Order> GetAll()
     {
         var orderService = new OrderService();
