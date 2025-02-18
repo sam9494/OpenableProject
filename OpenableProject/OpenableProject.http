@@ -1,0 +1,6 @@
+@OpenableProject_HostAddress = http://localhost:5046
+
+GET {{OpenableProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
