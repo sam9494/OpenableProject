@@ -7,7 +7,7 @@ public class Order
     public string RestaurantName { get; set; }
     public DateTime OrderDate { get; set; }
     public OrderStatus Status { get; set; }
-    public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+    public List<OrderItem> Items { get; set; } 
     public decimal TotalAmount { get; set; }
     
     public enum OrderStatus
