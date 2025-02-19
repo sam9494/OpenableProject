@@ -56,7 +56,7 @@ VALUES (
     {
         await using (var conn = _dbConnectionFactory.CreateDBConnection())
         {
-            var affectedRows = await conn.ExecuteAsync("DELETE FROM Order");
+            var affectedRows = await conn.ExecuteAsync("DELETE FROM [Order]");
             return affectedRows > 0;
         }
     }
