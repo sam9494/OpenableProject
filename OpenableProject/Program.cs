@@ -1,3 +1,6 @@
+using OpenableProject.Services;
+using OpenableProject.Services.Implementations;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,7 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddTransient<IRestaurantService, RestaurantService>();
+builder.Services.AddTransient<IMenuService, MenuService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
 var app = builder.Build();
+
+OrderService.ResetOrders();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
