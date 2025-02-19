@@ -1,4 +1,4 @@
-namespace OpenTable.Application;
+namespace OpenableProject;
 
 public enum OrderStatusEnum
 {

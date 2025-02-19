@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenTableProject", "OpenTableProject\OpenTableProject.csproj", "{C8505757-1823-4560-9DD6-BE0F1D7EFE65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenableProject", "OpenableProject\OpenableProject.csproj", "{C8505757-1823-4560-9DD6-BE0F1D7EFE65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

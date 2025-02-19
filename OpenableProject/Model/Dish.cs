@@ -1,4 +1,4 @@
-namespace OpenTableProject.Model;
+namespace OpenableProject.Model;
 
 public class Dish
 {

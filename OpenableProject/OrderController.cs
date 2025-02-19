@@ -1,9 +1,8 @@
-﻿
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Mvc;
-using OpenTableProject.Model;
+using OpenableProject.Model;
 
-namespace OpenTableProject;
+namespace OpenableProject;
 [ApiController]
 [Microsoft.AspNetCore.Components.Route("api/[controller]")]
 public class OrderController : ControllerBase

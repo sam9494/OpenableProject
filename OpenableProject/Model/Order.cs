@@ -1,6 +1,4 @@
-using OpenTable.Application;
-
-namespace OpenTableProject.Model;
+namespace OpenableProject.Model;
 
 public class Order
 {
