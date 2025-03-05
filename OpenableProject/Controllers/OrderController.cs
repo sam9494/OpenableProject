@@ -17,14 +17,14 @@ public class OrderController : ControllerBase
         var order = new Order
         {
             CustomerName = orderRequest.CustomerName,
-            Meals = orderRequest.Meals
+            OrderMeals = orderRequest.OrderMeals
         };
         
         return _orderService.Add(order);
     }
 
     [HttpGet]
-    public List<Order> GetAll()
+    public List<OrderResponse> GetAll()
     {
         return _orderService.GetAll();
     }

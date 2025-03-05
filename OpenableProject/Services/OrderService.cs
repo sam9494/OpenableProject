@@ -15,9 +15,15 @@ public class OrderService
     }
 
 
-    public List<Order> GetAll()
+    public List<OrderResponse> GetAll()
     {
-        return _orderRepository.GetAll();
+        var orders = _orderRepository.GetAll().Select(x=>new OrderResponse()
+        {
+            Id = x.Id,
+            OrderMeals = x.OrderMeals,
+            CustomerName = x.CustomerName
+        }).ToList();
+        return orders;
     }
 
 
