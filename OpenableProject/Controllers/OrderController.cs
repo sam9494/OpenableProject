@@ -24,7 +24,7 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet]
-    public List<OrderResponse> GetAll()
+    public IEnumerable<OrderResponse> GetAll()
     {
         return _orderService.GetAll();
     }

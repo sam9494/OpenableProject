@@ -15,14 +15,14 @@ public class OrderService
     }
 
 
-    public List<OrderResponse> GetAll()
+    public IEnumerable<OrderResponse> GetAll()
     {
         var orders = _orderRepository.GetAll().Select(x=>new OrderResponse()
         {
             Id = x.Id,
             OrderMeals = x.OrderMeals,
             CustomerName = x.CustomerName
-        }).ToList();
+        });
         return orders;
     }
 
