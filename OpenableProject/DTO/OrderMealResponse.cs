@@ -2,13 +2,11 @@ using OpenableProject.Models;
 
 namespace OpenableProject.DTO;
 
-public class OrderMeal
+public class OrderMealResponse
 {
+    public int OrderId { get; set; }
     public int MealId { get; set; }
     public string MealName { get; set; }
     public int Quantity { get; set; }
-    public int RestaurantId { get; set; }
-    //預設為0
-    public int OrderId { get; set; }
     public OrderStatusEnum Status { get; set; }
 }

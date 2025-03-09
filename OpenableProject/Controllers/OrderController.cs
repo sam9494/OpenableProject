@@ -34,5 +34,26 @@ public class OrderController : ControllerBase
     {
         _orderService.Delete(orderId);
     }
+    
+    // 廠商(餐廳)
+    [HttpGet]
+    public IEnumerable<OrderMealResponse> GetByRestaurant()
+    {
+        //透過權限驗證拿Id?
+        var restaurantId = 1;
+        return _orderService.GetByRestaurant(restaurantId);
+    }
+    
+    [HttpPut]
+    public OrderMealResponse ChangeOrderMealStatus(OrderMealStatusRequest statusRequest)
+    {
+        return _orderService.ChangeOrderMealStatus(statusRequest.OrderId,statusRequest.MealId, statusRequest.Status);
+    }
+}
 
+public class OrderMealStatusRequest
+{
+    public int OrderId { get; set; }
+    public int MealId { get; set; }
+    public OrderStatusEnum Status { get; set; }
 }

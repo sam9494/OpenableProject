@@ -25,6 +25,32 @@ public class OrderService
         });
         return orders;
     }
+    
+    public IEnumerable<OrderMealResponse> GetByRestaurant(int restaurantId)
+    {
+        var orderMeals = _orderRepository.GetByRestaurant(restaurantId).Select(x=>new OrderMealResponse()
+        {
+            OrderId = x.OrderId,
+            MealId = x.MealId,
+            MealName = x.MealName,
+            Quantity = x.Quantity,
+            Status = x.Status
+        });
+        return orderMeals;
+    }
+
+    public OrderMealResponse ChangeOrderMealStatus(int orderId,int mealId, OrderStatusEnum status)
+    {
+        var orderMeal = _orderRepository.ChangeOrderMealStatus(orderId, mealId, status); 
+        return new OrderMealResponse()
+        {
+            OrderId = orderMeal.OrderId,
+            MealId = orderMeal.MealId,
+            MealName = orderMeal.MealName,
+            Quantity = orderMeal.Quantity,
+            Status = orderMeal.Status
+        };
+    }
 
 
     public void Delete(int orderId)
