@@ -40,10 +40,16 @@ public class MenuController : ControllerBase
         return Menus[restaurantId];
     }
     
+    
     [HttpPost]
-    public IEnumerable<Menu> Post(MenuRequest request)
+    public ActionResult<IEnumerable<Menu>> Post(MenuRequest request)
     {
-        var menu = new Menu(){ Id = request.Id,RestaurantId = request.RestaurantId,Meals = request.Meals };
+        if (Menus[request.RestaurantId].Any(m => m.Id == request.Id))
+        {
+            return BadRequest("The menuId already exist");
+        }
+
+        var menu = new Menu(){ Id = request.Id,Meals = request.Meals };
         Menus[request.RestaurantId].Add(menu);
         return Menus[request.RestaurantId];
     }

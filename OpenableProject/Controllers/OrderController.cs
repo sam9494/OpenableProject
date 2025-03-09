@@ -6,7 +6,7 @@ using OpenableProject.Services;
 namespace OpenableProject.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class OrderController : ControllerBase
 {
     private readonly OrderService _orderService = new();
