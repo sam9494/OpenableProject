@@ -1,4 +1,5 @@
 using OpenableProject.Controllers;
+using OpenableProject.Enum;
 
 namespace OpenableProject.DTO;
 

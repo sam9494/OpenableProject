@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OpenableProject.DTO;
+using OpenableProject.Enum;
 using OpenableProject.Models;
 using OpenableProject.Services;
 
@@ -17,7 +18,8 @@ public class OrderController : ControllerBase
         var order = new Order
         {
             CustomerName = orderRequest.CustomerName,
-            OrderMeals = orderRequest.OrderMeals
+            OrderMeals = orderRequest.OrderMeals,
+            Status = OrderStatus.Pending
         };
         
         return _orderService.Add(order);
@@ -29,10 +31,15 @@ public class OrderController : ControllerBase
         return _orderService.GetAll();
     }
     
-    [HttpDelete]
+    [HttpDelete("/{orderId:int}")]
     public void Delete(int orderId)
     {
         _orderService.Delete(orderId);
     }
-
+    
+    [HttpPatch("/{orderId:int}/Status")]
+    public void UpdateStatus(int orderId, [FromBody]OrderStatus status)
+    {
+        _orderService.UpdateStatus(orderId, status);
+    }
 }

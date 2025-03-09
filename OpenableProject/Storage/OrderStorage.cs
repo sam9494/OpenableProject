@@ -32,4 +32,14 @@ public static class OrderStorage
     {
         return CurrentOrders.TryRemove(orderId, out _);
     }
+
+    public static Order GetById(int orderId)
+    {
+        return CurrentOrders.GetValueOrDefault(orderId);
+    }
+
+    public static void Update(Order order)
+    {
+        CurrentOrders[order.Id] = order;
+    }
 }

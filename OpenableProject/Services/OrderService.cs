@@ -1,5 +1,6 @@
 using OpenableProject.Controllers;
 using OpenableProject.DTO;
+using OpenableProject.Enum;
 using OpenableProject.Models;
 using OpenableProject.Repositories;
 
@@ -21,7 +22,8 @@ public class OrderService
         {
             Id = x.Id,
             OrderMeals = x.OrderMeals,
-            CustomerName = x.CustomerName
+            CustomerName = x.CustomerName,
+            Status = x.Status
         });
         return orders;
     }
@@ -30,5 +32,15 @@ public class OrderService
     public void Delete(int orderId)
     {
         _orderRepository.Delete(orderId);
+    }
+
+    public void UpdateStatus(int orderId, OrderStatus status)
+    {
+        var order = _orderRepository.GetById(orderId);
+        
+        if (order == null) throw new KeyNotFoundException($"Order {orderId} not found.");
+        
+        order.Status = status;
+        _orderRepository.Update(order);
     }
 }

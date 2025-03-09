@@ -3,7 +3,7 @@ using OpenableProject.Enum;
 
 namespace OpenableProject.Models;
 
-public class Order
+public class OrderResponse
 {
     public int Id { get; set; }
     public string CustomerName { get; set; }

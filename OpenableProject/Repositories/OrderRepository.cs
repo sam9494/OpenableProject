@@ -21,4 +21,14 @@ public class OrderRepository
     {
         OrderStorage.Delete(orderId);
     }
+
+    public Order GetById(int orderId)
+    {
+        return OrderStorage.GetById(orderId);
+    }
+
+    public void Update(Order order)
+    {
+        OrderStorage.Update(order);
+    }
 }
