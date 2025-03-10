@@ -1,6 +1,5 @@
-using OpenableProject.Controllers;
-using OpenableProject.DTO;
 using OpenableProject.Enum;
+using OpenableProject.Exceptions;
 using OpenableProject.Models;
 using OpenableProject.Repositories;
 
@@ -38,7 +37,7 @@ public class OrderService
     {
         var order = _orderRepository.GetById(orderId);
         
-        if (order == null) throw new KeyNotFoundException($"Order {orderId} not found.");
+        if (order == null) throw new OrderNotFoundException(orderId);
         
         order.Status = status;
         _orderRepository.Update(order);
