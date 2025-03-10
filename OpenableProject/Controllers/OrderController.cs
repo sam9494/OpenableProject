@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenableProject.DTO;
 using OpenableProject.Models;
@@ -17,7 +18,15 @@ public class OrderController : ControllerBase
         var order = new Order
         {
             CustomerName = orderRequest.CustomerName,
-            OrderMeals = orderRequest.OrderMeals
+            OrderMeals = orderRequest.OrderMeals.Select(om=> new OrderMeal()
+            {
+                MealId = om.MealId,
+                MealName = om.MealName,
+                Quantity = om.Quantity,
+                RestaurantId = om.RestaurantId,
+                OrderId = 0,// 初始為0
+                Status = OrderStatusEnum.Established
+            }).ToList()
         };
         
         return _orderService.Add(order);
@@ -37,6 +46,7 @@ public class OrderController : ControllerBase
     
     // 廠商(餐廳)
     [HttpGet]
+    [Authorize]
     public IEnumerable<OrderMealResponse> GetByRestaurant()
     {
         //透過權限驗證拿Id?
@@ -45,6 +55,7 @@ public class OrderController : ControllerBase
     }
     
     [HttpPut]
+    [Authorize]
     public OrderMealResponse ChangeOrderMealStatus(OrderMealStatusRequest statusRequest)
     {
         return _orderService.ChangeOrderMealStatus(statusRequest.OrderId,statusRequest.MealId, statusRequest.Status);
