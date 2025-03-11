@@ -1,9 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using OpenableProject.Repositories;
 using OpenableProject.Services;
 
 public class AccountController : Controller
 {
     private readonly JwtService _jwtService;
+    private readonly VendorService _vendorService = new();
 
     public AccountController(JwtService jwtService)
     {
@@ -17,13 +24,14 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Login(string username, string password)
+    public async Task<IActionResult> Login(string username, string password)
     {
         // 模擬用戶驗證（正式應用應查詢資料庫）
-        if (username == "admin" && password == "admin")
+        if (_vendorService.ValidAccount(username, password))
         {
+            var vendor = _vendorService.GetVendor(username);
             // 生成 JWT Token
-            var token = _jwtService.GenerateToken(username);
+            var token = _jwtService.GenerateToken(vendor.VendorName);
 
             // 把 token 存儲在 Cookie 中
             Response.Cookies.Append("AuthToken", token, new CookieOptions
@@ -32,6 +40,9 @@ public class AccountController : Controller
                 Secure = true, // 確保 HTTPS 上使用
                 SameSite = SameSiteMode.Strict
             });
+
+            ViewBag.UserName = vendor.VendorName;
+
             // 登入成功後，導向到 vendoradmin 的 Dashboard
             return RedirectToAction("Index", "Dashboard");
         }

@@ -24,6 +24,7 @@ public class JwtService
     {
         var claims = new[]
         {
+            new Claim(ClaimTypes.Name, username),
             new Claim(JwtRegisteredClaimNames.Sub, username),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new Claim(ClaimTypes.Role, "User") // 設定角色
