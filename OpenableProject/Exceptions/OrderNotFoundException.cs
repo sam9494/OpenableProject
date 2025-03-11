@@ -1,11 +1,8 @@
+using System.Net;
+
 namespace OpenableProject.Exceptions;
 
-public class OrderNotFoundException : KeyNotFoundException
+public class OrderNotFoundException(int orderId) : Exception($"Order with id {orderId} not found.")
 {
-    public int OrderId { get; }
-    public OrderNotFoundException(int orderId) 
-        : base($"Order with id {orderId} not found.")
-    {
-        OrderId = orderId;
-    }
+    public static int StatusCode { get; private set; } = StatusCodes.Status404NotFound;
 }
