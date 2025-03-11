@@ -21,4 +21,19 @@ public class OrderRepository
     {
         OrderStorage.Delete(orderId);
     }
+
+    public void UpdateOrderStatus(int orderId, int orderStatus)
+    {
+        OrderStorage.UpdateOrderStatus(orderId, orderStatus);
+    }
+    
+    public bool IsOrderBelongsToRestaurant(int orderId, int restaurantId)
+    {
+        return OrderStorage.IsOrderBelongsToRestaurant(orderId, restaurantId);
+    }
+
+    public bool IsOrderBelongsToCustomer(int orderId, string username)
+    {
+        return OrderStorage.IsOrderBelongsToCustomer(orderId, username);
+    }
 }

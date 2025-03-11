@@ -8,6 +8,8 @@ public class Order
     public int Id { get; set; }
     public string CustomerName { get; set; }
     public List<OrderMeal> OrderMeals { get; set; }
+    public int Status  { get; set; }
+    public int RestaurantId { get; set; }
 }
 
 public class OrderResponse
