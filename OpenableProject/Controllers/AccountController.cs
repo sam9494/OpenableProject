@@ -41,8 +41,6 @@ public class AccountController : Controller
                 SameSite = SameSiteMode.Strict
             });
 
-            ViewBag.UserName = vendor.VendorName;
-
             // 登入成功後，導向到 vendoradmin 的 Dashboard
             return RedirectToAction("Index", "Dashboard");
         }
@@ -50,5 +48,11 @@ public class AccountController : Controller
         // 登入失敗，顯示錯誤消息
         ViewBag.Error = "Invalid username or password";
         return View();
+    }
+
+    public async Task<IActionResult> Logout()
+    {
+        //await HttpContext.SignOutAsync();
+        return RedirectToAction("Login", "Account");
     }
 }
