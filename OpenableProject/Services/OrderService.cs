@@ -1,5 +1,3 @@
-using OpenableProject.Controllers;
-using OpenableProject.DTO;
 using OpenableProject.Models;
 using OpenableProject.Repositories;
 

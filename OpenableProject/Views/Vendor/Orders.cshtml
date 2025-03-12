@@ -1,7 +1,36 @@
 ﻿@{
-ViewData["Title"] = "訂單管理";
-Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "訂單管理";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    @model IEnumerable<OpenableProject.Models.OrderResponse>
 }
-
-<h2>📦 訂單管理</h2>
-<p>這裡可以查看您的所有訂單。</p>
+<div class="content">
+    <h2>📦 訂單管理</h2>
+    <p>這裡可以查看您的所有訂單。</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>客戶名稱</th>
+            <th>狀態</th>
+            <th>餐點數量</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.CustomerName</td>
+                <td>@order.Status</td>
+                <td>@order.OrderMeals.Count</td>
+                <td>
+                    <a href="@Url.Action("Process", "Vendor", new { orderId = order.Id })" class="btn btn-sm btn-primary">處理</a>
+                    <a href="@Url.Action("Complete", "Vendor", new { orderId = order.Id })" class="btn btn-sm btn-info">完成</a>
+                    <a href="@Url.Action("Cancel", "Vendor", new { orderId = order.Id })" class="btn btn-sm btn-danger">取消</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
