@@ -34,5 +34,17 @@ public class OrderController : ControllerBase
     {
         _orderService.Delete(orderId);
     }
+    
+    [HttpPut("status")]
+    public ActionResult<OrderResponse> UpdateStatus(UpdateOrderStatusRequest request)
+    {
+        var order = _orderService.UpdateStatus(request.OrderId, request.NewStatus);
+        if (order == null)
+        {
+            return NotFound();
+        }
+            
+        return order;
+    }
 
 }

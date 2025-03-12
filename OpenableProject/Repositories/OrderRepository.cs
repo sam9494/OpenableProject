@@ -21,4 +21,9 @@ public class OrderRepository
     {
         OrderStorage.Delete(orderId);
     }
+    
+    public Order UpdateStatus(int orderId, OrderStatus newStatus)
+    {
+        return OrderStorage.UpdateStatus(orderId, newStatus);
+    }
 }

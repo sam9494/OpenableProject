@@ -31,4 +31,19 @@ public class OrderService
     {
         _orderRepository.Delete(orderId);
     }
+    
+    public OrderResponse UpdateStatus(int orderId, OrderStatus newStatus)
+    {
+        var updatedOrder = _orderRepository.UpdateStatus(orderId, newStatus);
+
+        return new OrderResponse
+        {
+            Id = updatedOrder.Id,
+            OrderMeals = updatedOrder.OrderMeals,
+            CustomerName = updatedOrder.CustomerName,
+            Status = updatedOrder.Status,
+            CreatedTime = updatedOrder.CreatedTime,
+            UpdatedTime = updatedOrder.UpdatedTime
+        };
+    }
 }

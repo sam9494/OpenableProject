@@ -32,4 +32,15 @@ public static class OrderStorage
     {
         return CurrentOrders.TryRemove(orderId, out _);
     }
+    
+    public static Order UpdateStatus(int orderId, OrderStatus newStatus)
+    {
+        var order = CurrentOrders.FirstOrDefault(o => o.Key == orderId);
+        
+        order.Value.Status = newStatus;
+        order.Value.UpdatedTime = DateTime.Now;
+        
+        return order.Value;
+        
+    }
 }
