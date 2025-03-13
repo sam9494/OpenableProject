@@ -31,13 +31,13 @@ public class OrderController : ControllerBase
         return _orderService.GetAll();
     }
     
-    [HttpDelete("/{orderId:int}")]
+    [HttpDelete("{orderId:int}")]
     public void Delete(int orderId)
     {
         _orderService.Delete(orderId);
     }
     
-    [HttpPatch("/{orderId:int}/Status")]
+    [HttpPatch("{orderId:int}/Status")]//根據使用者切開，後續切不同模組，進一步切服務，擴展方案不同，省成本
     public void UpdateStatus(int orderId, [FromBody]OrderStatus status)
     {
         _orderService.UpdateStatus(orderId, status);
