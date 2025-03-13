@@ -6,15 +6,6 @@ namespace OpenableProject.ExceptionHandlers;
 
 public class NullExceptionHandler : IExceptionHandler
 {
-    // 使用 _problemDetailsService 自動設定 ContentType = "application/problem+json"
-    // 需要注入 _problemDetailsService
-    private readonly IProblemDetailsService _problemDetailsService;
-    
-    public NullExceptionHandler(IProblemDetailsService problemDetailsService)
-    {
-        _problemDetailsService = problemDetailsService;
-    }
-    
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         if (exception is not NullReferenceException)
@@ -33,16 +24,11 @@ public class NullExceptionHandler : IExceptionHandler
             Type = $"https://httpstatuses.com/{StatusCodes.Status400BadRequest}"
         };
         
-        // 使用 _problemDetailsService 自動設定 ContentType = "application/problem+json"
-        // 需要使用 problemDetailsContext
-        var problemDetailsContext = new ProblemDetailsContext
-        {
-            HttpContext = httpContext,
-            ProblemDetails = problemDetails
-        };
-        
         Console.WriteLine($"{problemDetails.Title}: {exception.StackTrace}");
-        await _problemDetailsService.WriteAsync(problemDetailsContext);
+
+        httpContext.Response.ContentType = "application/problem+json";
+        var result = JsonSerializer.Serialize(problemDetails);
+        await httpContext.Response.WriteAsync(result, cancellationToken: cancellationToken);
         
         return true;
     }

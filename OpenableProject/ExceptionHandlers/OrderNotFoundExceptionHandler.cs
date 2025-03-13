@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using OpenableProject.Exceptions;
@@ -5,13 +6,6 @@ using OpenableProject.Exceptions;
 namespace OpenableProject.ExceptionHandlers;
 public class OrderNotFoundExceptionHandler : IExceptionHandler
 {
-    private readonly IProblemDetailsService _problemDetailsService;
-    
-    public OrderNotFoundExceptionHandler(IProblemDetailsService problemDetailsService)
-    {
-        _problemDetailsService = problemDetailsService;
-    }
-    
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         if (exception is not OrderNotFoundException)
@@ -30,14 +24,11 @@ public class OrderNotFoundExceptionHandler : IExceptionHandler
             Type = $"https://httpstatuses.com/{OrderNotFoundException.StatusCode}"
         };
     
-        var problemDetailsContext = new ProblemDetailsContext
-        {
-            HttpContext = httpContext,
-            ProblemDetails = problemDetails
-        };
-        
         Console.WriteLine($"{problemDetails.Title}: {exception.StackTrace}");
-        await _problemDetailsService.WriteAsync(problemDetailsContext);
+
+        httpContext.Response.ContentType = "application/problem+json";
+        var result = JsonSerializer.Serialize(problemDetails);
+        await httpContext.Response.WriteAsync(result, cancellationToken: cancellationToken);
     
         return true;
     }
