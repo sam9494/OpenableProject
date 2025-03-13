@@ -49,8 +49,8 @@ public class ExceptionMiddleware
             Type = $"https://httpstatuses.com/{statusCode}"
         };
         
-        context.Response.ContentType = "application/problem+json"; 
-        // await context.Response.WriteAsync(JsonSerializer.Serialize(problemDetail));
-        await context.Response.WriteAsJsonAsync(problemDetail);
+        context.Response.ContentType = "application/problem+json"; //RFC 7807
+        await context.Response.WriteAsync(JsonSerializer.Serialize(problemDetail)); //這邊才會維持 ContentType = "application/problem+json"
+        // await context.Response.WriteAsJsonAsync(problemDetail); //這邊會強迫設定 ContentType = "application/json
     }
 }
