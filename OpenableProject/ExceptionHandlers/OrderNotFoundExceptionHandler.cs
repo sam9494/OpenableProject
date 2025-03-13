@@ -19,14 +19,15 @@ public class OrderNotFoundExceptionHandler : IExceptionHandler
             return false;
         }
     
-        //httpContext.Response.StatusCode = OrderNotFoundException.StatusCode;
+        httpContext.Response.StatusCode = OrderNotFoundException.StatusCode;
         
         var problemDetails = new ProblemDetails
         {
             Status = OrderNotFoundException.StatusCode,
             Title = OrderNotFoundException.Title,
             Detail = exception.Message,
-            Instance = httpContext.Request.Path
+            Instance = httpContext.Request.Path,
+            Type = $"https://httpstatuses.com/{OrderNotFoundException.StatusCode}"
         };
     
         var problemDetailsContext = new ProblemDetailsContext

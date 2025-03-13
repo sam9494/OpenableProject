@@ -13,19 +13,15 @@ public class GlobalExceptionHandler : IExceptionHandler
     
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        if (exception is not Exception)
-        {
-            return false;
-        }
-    
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
         
         var problemDetails = new ProblemDetails
         {
-            Status = StatusCodes.Status400BadRequest,
+            Status = StatusCodes.Status500InternalServerError,
             Title = "An unexpected error occurred",
             Detail = exception.Message,
-            Instance = httpContext.Request.Path
+            Instance = httpContext.Request.Path,
+            Type = $"https://httpstatuses.com/{StatusCodes.Status500InternalServerError}"
         };
     
         var problemDetailsContext = new ProblemDetailsContext
