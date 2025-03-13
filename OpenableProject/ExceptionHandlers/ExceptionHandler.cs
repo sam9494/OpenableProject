@@ -8,14 +8,15 @@ public class ExceptionHandler<TException> : IExceptionHandler where TException :
 {
     private readonly int _statusCode;
     private readonly string _title;
-    // private readonly IProblemDetailsService _problemDetailsService;
+    
+    //IProblemDetailsService 要用 postman 打，Response 才會是 ProblemDetails 格式
+    private readonly IProblemDetailsService _problemDetailsService;
 
-    // protected ExceptionHandler(int statusCode, string title, IProblemDetailsService problemDetailsService)
-    protected ExceptionHandler(int statusCode, string title)
+    protected ExceptionHandler(int statusCode, string title, IProblemDetailsService problemDetailsService)
     {
         _statusCode = statusCode;
         _title = title;
-        // _problemDetailsService = problemDetailsService;
+        _problemDetailsService = problemDetailsService;
 
     }
 
@@ -37,10 +38,9 @@ public class ExceptionHandler<TException> : IExceptionHandler where TException :
         };
         
         Console.WriteLine($"{_title}: {exception.StackTrace}");
-        
-        httpContext.Response.ContentType = "application/problem+json";
-        var result = JsonSerializer.Serialize(problemDetails);
-        await httpContext.Response.WriteAsync(result, cancellationToken: cancellationToken);
+
+        var problemContext = new ProblemDetailsContext { HttpContext = httpContext, ProblemDetails = problemDetails };
+        await _problemDetailsService.WriteAsync(problemContext);
     
         return true;
     }
