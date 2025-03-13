@@ -32,6 +32,8 @@ public abstract class ExceptionHandler<TException> : IExceptionHandler where TEx
         };
         
         Console.WriteLine($"{_title}: {exception.StackTrace}");
+        //httpContext.Response.ContentType = "application/problem+json";
+        //httpContext.Response.StatusCode = _statusCode;
         
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
         return true;
