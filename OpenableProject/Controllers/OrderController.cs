@@ -47,11 +47,17 @@ public class OrderController : ControllerBase
     // 廠商(餐廳)
     [HttpGet]
     [Authorize]
-    public IEnumerable<OrderMealResponse> GetByRestaurant()
+    public ActionResult<IEnumerable<OrderMealResponse>> GetByRestaurant()
     {
-        //透過權限驗證拿Id?
-        var restaurantId = 1;
-        return _orderService.GetByRestaurant(restaurantId);
+        string restaurantIdClaim = User.Claims.FirstOrDefault(c => c.Type == "RestaurantId")?.Value;
+
+        if (string.IsNullOrEmpty(restaurantIdClaim))
+        {
+            return Unauthorized("Restaurant ID is missing in the token.");
+        }
+
+        int restaurantId = int.Parse(restaurantIdClaim);
+        return Ok(_orderService.GetByRestaurant(restaurantId)) ;
     }
     
     [HttpPut]
