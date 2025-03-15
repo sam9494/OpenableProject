@@ -32,6 +32,18 @@ public class AuthenticationController : ControllerBase
         var token = GenerateJwtToken(user);
         return Ok(new { Token = token });
     }
+    //
+    // [HttpGet("exception")]
+    // public IActionResult Exception()
+    // {
+    //     return Ok();
+    // }
+    //
+    // [HttpGet("not-exist-exception")]
+    // public IActionResult NotExistException()
+    // {
+    //     return Ok();
+    // }
 
     private string GenerateJwtToken(UserInfo user)
     {

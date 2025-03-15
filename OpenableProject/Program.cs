@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using OpenableProject.ExceptionHandler;
 using OpenableProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -62,9 +63,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-
-
-
+// 自定義的例外處理
+builder.Services.AddExceptionHandler<NotExistExceptionHandler>();
 
 var app = builder.Build();
 
@@ -82,6 +82,34 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseExceptionHandler( // 通用的例外處理
+    new ExceptionHandlerOptions()
+    {
+        ExceptionHandler = context =>
+        {
+            context.Response.StatusCode = 500;
+            context.Response.WriteAsJsonAsync(
+                new
+                {
+                    title = "An unexpected error occured.",
+                    traceId = context.TraceIdentifier
+                });
+            return Task.CompletedTask;
+        }
+    });
+
+// 方便測試用 可以省略----------------
+app.MapGet("/exception", () =>
+{
+    throw new InvalidOperationException("An unexpected error occured.");
+});
+
+app.MapGet("/not-exist-exception", () =>
+{
+    throw new NotExistException("XoX");
+});
+// 方便測試用 可以省略----------------
 
 app.MapControllers();
 app.UseHttpsRedirection();
