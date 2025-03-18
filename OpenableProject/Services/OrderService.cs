@@ -1,5 +1,6 @@
+using OpenableProject.DTO;
 using OpenableProject.Enum;
-using OpenableProject.Exceptions;
+using OpenableProject.Errors;
 using OpenableProject.Models;
 using OpenableProject.Repositories;
 
@@ -33,13 +34,15 @@ public class OrderService
         _orderRepository.Delete(orderId);
     }
 
-    public void UpdateStatus(int orderId, OrderStatus status)
+    public Result<bool> UpdateStatus(int orderId, OrderStatus status)
     {
         var order = _orderRepository.GetById(orderId);
         
-        if (order == null) throw new OrderNotFoundException(orderId);
+        if (order == null) 
+            return Result<bool>.Failure(new NotFoundError<Order>());
         
         order.Status = status;
         _orderRepository.Update(order);
+        return Result<bool>.Success(true);
     }
 }

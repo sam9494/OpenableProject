@@ -38,8 +38,13 @@ public class OrderController : ControllerBase
     }
     
     [HttpPatch("{orderId:int}/Status")]
-    public void UpdateStatus(int orderId, [FromBody]OrderStatus status)
+    public IActionResult UpdateStatus(int orderId, [FromBody]OrderStatus status)
     {
-        _orderService.UpdateStatus(orderId, status);
+        var result = _orderService.UpdateStatus(orderId, status);
+
+        if (!result.IsSuccess)
+            return NotFound(result.Error);
+        
+        return Ok();
     }
 }
